@@ -18,6 +18,15 @@ myapp.post("/signin", (req, res) => {
     .json({ message: "Invalid username and/or password"});
 });
 
+myapp.get("/employees", (req, res) => {
+  let tkn = req.header("authorization");
+  if (! tkn) return
+    res.status(401).send("No Token");
+    if (tkn.startsWith("Bearer ")) {
+      tokenValue = tkn.slice(7, tkn.length).trimLeft();
+    }
+});
+
 myapp.listen(5000, () => {
   console.log("API Server is localhost:5000");
 });
